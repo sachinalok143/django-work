@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+{%if not request.user.is_authenticated%}
+<div class='row'>
+	<div class='col-sm-6 offset-sm-3 '>
+		<h1>Register</h1>
+		<form method="post" action=".">
+			{% csrf_token %}
+			{{ form1|crispy }}
+			{{ form2|crispy }}
+
+			<input class='btn btn-block btn-primary' type="submit" value="{% trans 'Submit' %}" />
+			<input type="hidden" name="next" value="{{ next }}" />
+		</form>
+	</div>
+
+</div>
+<hr/>
+{%else%}
+<div class='row'>
+	<div class='col-sm-8 offset-sm-2 text-align-center'>
+		<h1>{{title}}</h1><br>
+		{%if A%}
+		<h1>You have authentications of A type.</h1>
+		{%endif%}
+		{%if B%}
+		<h1>You have authentications of B type.</h1>
+		{%endif%}
+		{%if C%}
+		<h1>You have authentications of C type.</h1>
+		{%endif%}
+		{%if D%}
+		<h1>You have authentications of D type.</h1>
+		{%endif%}
+	</div>
+</div>
+{% endif%}
+{% endblock %}

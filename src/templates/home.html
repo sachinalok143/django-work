@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{%load crispy_forms_tags%}
+{% load staticfiles%}
+
+{%block title %}WELCOME |{%endblock%}
+
+{%block jumbotron%}
+<!-- {{block.super}} -->
+<!-- hi!this is sachin. -->
+<div class="jumbotron" style="background-color: #507b3e">
+	<div class="row">
+		<div class="col-md-8 text-align-center">
+			<h1>Try Django 1.8</h1>
+			<p class="lead">This  is Sachin Kumar from iit kharagour.I am here to learn Django framework.It seems interesting.My future planning is to add machine learnig to make the web app more user favarable.</p>
+			<a class="btn btn-lg btn-primary" href="" role="button">Join Me &raquo;</a>
+		</div>
+		<div class="col-md-4" style="background-color: black;min-height:315px;">
+			<iframe width="560" height="315" src="https://www.youtube.com/embed/JPst8mLkAoo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+		</div>
+	</div>
+</div>
+
+{%endblock%}
+
+{%block content%}
+<div class="row">
+	<div class="col-md-3 " >
+		<img src="{% static 'img/pic1.jpg'%}" width="250" height="200" alt="Computer Hope" >
+	</div>
+	<div class="col-md-3 ">
+		<span class="fa-stack fa-lg fa-5x">
+			<i class="fas fa-circle-notch  fa-stack-2x fa-spin"></i>
+			<i class="fab fa-github  fa-stack-1x "></i>
+		</span>
+	</div>
+	<div class="col-md-3 ">
+		<span class="fa-stack fa-lg fa-5x">
+			<i class="fas fa-circle-notch  fa-stack-2x fa-spin"></i>
+			<i class="fab fa-twitter  fa-stack-1x "></i>
+		</span>
+
+	</div>
+	{%if not request.user.is_authenticated%}
+	<div class="col-md-3">
+		<h2 align="center">Sign Up</h2>
+		<form method="POST" action="">{% csrf_token %}
+			{{form|crispy}}<p></p>
+			<input type="submit" class="btn btn-primary" name="sign up" value="sign up">
+		</form>
+	</div>
+	{%endif%}
+</div>
+<!-- <h1>Hello! again.</h1> -->
+<!-- <p>{{content}}</p> -->
+
+<!-- <div class="row"> -->
+	<!-- <div class="col-md-4">
+		<form method="POST" action="">{% csrf_token %}
+			{{form|crispy}}
+			<input type="submit" name="sign up" value="sign up">
+		</form>
+	</div>
+	<div class="col-md-4">
+		<form method="POST" action="">{% csrf_token %}
+			{{form|crispy}}
+			<input type="submit" name="sign up" value="sign up">
+		</form>
+	</div> -->
+	<!-- </div> -->
+
+
+	{% if request.user.is_authenticated and request.user.is_staff %}
+		<h2 align="center" style="color: red">You are a staff!</h2>
+			<table class="table">
+				<head>
+					<th>
+						sn
+					</th>
+					<th>
+						Email
+					</th>
+					<th>
+						Name
+					</th>
+					<th>
+						Time
+					</th>
+				</head>
+		{% for instance in query%}
+			<tr>
+				<td>
+					{{forloop.counter}}
+				</td>
+				<td>
+					{{instance.email}}
+				</td>
+				<td>
+					{{instance.name}}
+				</td>
+				<td>
+					{{instance.timestamp|timesince}}
+				</td>
+			</tr>
+		{%endfor%}
+			</table>
+	{% endif%}
+	{%endblock%}
+</body>
+</html>
