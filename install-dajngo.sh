@@ -1,6 +1,6 @@
 
-pip install django==1.8
 sudo su
+pip install django==1.8
 pip install --upgrade django-crispy-forms
 pip install django-registration
 exit
